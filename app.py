@@ -22,6 +22,9 @@ hf_token = os.environ.get('hf_token')
 repo_id = os.environ.get('repo_id')
 
 st.set_page_config(page_title="Your Negotiation AI Assistant")
+st.subheader("Your Negotiation AI Assistant")
+st.write('---')
+
 css_file = "main.css"
 with open(css_file) as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
@@ -31,7 +34,8 @@ file_path = os.path.join(os.getcwd(), "GTY.pdf")
 texts=""
 
 with st.sidebar:
-    st.subheader("Real word negotiation skills.")
+    st.subheader("Real world negotiation skills.")
+    st.write('---')
     try:        
         with st.spinner("Preparing materials for you..."):
             doc_reader = PdfReader(file_path)
