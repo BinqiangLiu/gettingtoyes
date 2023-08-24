@@ -48,7 +48,9 @@ with st.sidebar:
             )
             temp_texts = text_splitter.split_text(raw_text)
             texts = temp_texts
-            st.write("Materials ready. Now you can proceed to start your NEGOTIATION journey!")
+            st.write("Materials ready.")
+            st.write("Please wait a few seconds.")
+            st.write("You are just about to start your NEGOTIATION journey!")
     except Exception as e:
         st.write("Unknow error.")
         print("Unknow error.")
