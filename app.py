@@ -20,14 +20,15 @@ repo_id = os.environ.get('repo_id')
 
 st.subheader("Your PDF file Chat Assistant")
 
+file_path = os.path.join(os.getcwd(), "GTY.pdf")
+
 texts=""
 
 with st.sidebar:
-    st.subheader("Upload your PDF file here: ")
-    try:
-        uploaded_file = st.file_uploader("Upload your PDF file and press OK", type=['pdf'], accept_multiple_files=False)
-        with st.spinner("Processing your PDF file..."):
-            doc_reader = PdfReader(uploaded_file)
+    st.subheader("Real word negotiation skills.")
+    try:        
+        with st.spinner("Preparing materials for you..."):
+            doc_reader = PdfReader(file_path)
             raw_text = ''
             for i, page in enumerate(doc_reader.pages):
                 text = page.extract_text()
@@ -41,10 +42,10 @@ with st.sidebar:
             )
             temp_texts = text_splitter.split_text(raw_text)
             texts = temp_texts
-            st.write("File processed. Now you can proceed to query your PDF file!")
+            st.write("Materials ready. Now you can proceed to start your NEGOTIATION journey!")
     except Exception as e:
-        st.write("Please upload your PDF file first.")
-        print("Please upload your PDF file first.")
+        st.write("Unknow error.")
+        print("Unknow error.")
         st.stop()
 
 import requests
@@ -59,7 +60,7 @@ initial_embeddings=get_embeddings(texts)
 
 db_embeddings = torch.FloatTensor(initial_embeddings) 
 
-question = st.text_input("Enter your question & query your PDF file:")
+question = st.text_input("Enter any question on NEGOTIATION!")
 
 if question !="":         
     st.write("Your question: "+question)
