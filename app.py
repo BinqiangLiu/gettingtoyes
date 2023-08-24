@@ -5,6 +5,9 @@ from langchain import HuggingFaceHub
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.document_loaders import TextLoader
+import requests
+from pathlib import Path
+from time import sleep
 import torch
 import os
 from dotenv import load_dotenv
@@ -18,7 +21,10 @@ model_id = os.environ.get('model_id')
 hf_token = os.environ.get('hf_token')
 repo_id = os.environ.get('repo_id')
 
-st.subheader("Your PDF file Chat Assistant")
+st.set_page_config(page_title="Your Negotiation AI Assistant")
+css_file = "main.css"
+with open(css_file) as f:
+    st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
 file_path = os.path.join(os.getcwd(), "GTY.pdf")
 
@@ -48,7 +54,6 @@ with st.sidebar:
         print("Unknow error.")
         st.stop()
 
-import requests
 api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
 headers = {"Authorization": f"Bearer {hf_token}"}
 
