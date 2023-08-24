@@ -34,8 +34,7 @@ file_path = os.path.join(os.getcwd(), "GTY.pdf")
 texts=""
 
 with st.sidebar:
-    st.subheader("Real world negotiation skills.")
-    st.write('---')
+    st.subheader("Real world negotiation skills.")    
     try:        
         with st.spinner("Preparing materials for you..."):
             doc_reader = PdfReader(file_path)
