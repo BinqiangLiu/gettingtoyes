@@ -71,7 +71,7 @@ db_embeddings = torch.FloatTensor(initial_embeddings)
 question = st.text_input("Enter any question on NEGOTIATION!")
 
 if question !="":         
-    st.write("Your question: "+question)
+    #st.write("Your question: "+question)
     print("Your question: "+question)
     print()
 else:
