@@ -21,9 +21,8 @@ model_id = os.environ.get('model_id')
 hf_token = os.environ.get('hf_token')
 repo_id = os.environ.get('repo_id')
 
-st.set_page_config(page_title="Your Negotiation AI Assistant")
+st.set_page_config(page_title="Negotiation AI Assistant")
 st.subheader("Your Negotiation AI Assistant")
-st.write('---')
 
 css_file = "main.css"
 with open(css_file) as f:
@@ -51,9 +50,8 @@ with st.sidebar:
             )
             temp_texts = text_splitter.split_text(raw_text)
             texts = temp_texts
-            st.write("Materials ready.")
-            st.write("Please wait a few seconds.")
-            st.write("You are just about to start your NEGOTIATION journey!")
+            st.write("Materials ready.")  
+            st.subheader("Enjoy NEGOTIATION Chatting!")   
     except Exception as e:
         st.write("Unknow error.")
         print("Unknow error.")
