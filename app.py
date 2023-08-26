@@ -31,6 +31,33 @@ with open(css_file) as f:
 file_path = os.path.join(os.getcwd(), "GTY.pdf")
 
 texts=""
+wechat_image= "WeChatCode.jpg"
+
+st.sidebar.markdown(
+    """
+    <style>
+    .blue-underline {
+        text-decoration: bold;
+        color: blue;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    """
+    <style>
+        [data-testid=stSidebar] [data-testid=stImage]{
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+    </style>
+    """, unsafe_allow_html=True
+)
 
 with st.sidebar:
     st.subheader("Real world negotiation skills.")    
@@ -51,7 +78,8 @@ with st.sidebar:
             temp_texts = text_splitter.split_text(raw_text)
             texts = temp_texts
             st.write("Materials ready.")  
-            st.write("Wait a while for the AI Assistant to be ready to Chat.")              
+            st.write("Wait a while for the AI Assistant to be ready to Chat.")               
+            st.write("Disclaimer: This app is for information purpose only. NO liability could be claimed against whoever associated with this app in any manner.")    
             st.subheader("Enjoy NEGOTIATION Chatting!")            
             st.sidebar.markdown("Contact: [binqiang.liu@foxmail.com](mailto:binqiang.liu@foxmail.com)")
             st.sidebar.markdown('WeChat: <span class="blue-underline">pat2win</span>, or scan the code below.', unsafe_allow_html=True)
