@@ -50,7 +50,7 @@ with st.sidebar:
             )
             temp_texts = text_splitter.split_text(raw_text)
             texts = temp_texts
-            st.write("Materials ready.")  
+            st.write("Materials ready. Wait a while for the AI Assistant to be ready to Chat.")  
             st.subheader("Enjoy NEGOTIATION Chatting!")   
     except Exception as e:
         st.write("Unknow error.")
