@@ -50,8 +50,13 @@ with st.sidebar:
             )
             temp_texts = text_splitter.split_text(raw_text)
             texts = temp_texts
-            st.write("Materials ready. Wait a while for the AI Assistant to be ready to Chat.")  
-            st.subheader("Enjoy NEGOTIATION Chatting!")   
+            st.write("Materials ready.")  
+            st.write("Wait a while for the AI Assistant to be ready to Chat.")              
+            st.subheader("Enjoy NEGOTIATION Chatting!")            
+            st.sidebar.markdown("Contact: [binqiang.liu@foxmail.com](mailto:binqiang.liu@foxmail.com)")
+            st.sidebar.markdown('WeChat: <span class="blue-underline">pat2win</span>, or scan the code below.', unsafe_allow_html=True)
+            st.image(wechat_image)
+            st.sidebar.markdown('<span class="blue-underline">Life Enhancing with AI.</span>', unsafe_allow_html=True)                
     except Exception as e:
         st.write("Unknow error.")
         print("Unknow error.")
