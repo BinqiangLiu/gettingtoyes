@@ -148,8 +148,8 @@ while True:
                 ss_contents.append(temp_ss_content)
             temp_ss_contents=str(ss_contents)
             final_ss_contents = temp_ss_contents.replace('\\n', '') 
-          print("Your query:\n"+initial_user_query)            
-          print("Contexts the AI Assistant extracts from the original materials which have already embedded and saved in Pinecone:\n"+final_ss_contents)
+            print("Your query:\n"+initial_user_query)            
+            print("Contexts the AI Assistant extracts from the original materials which have already embedded and saved in Pinecone:\n"+final_ss_contents)
 #        file_path = "tempfile.txt"
 #        with open(file_path, "w", encoding="utf-8") as file:
 #            file.write(final_ss_contents)
