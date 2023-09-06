@@ -8,3 +8,4 @@ sentence_transformers
 streamlit
 streamlit_chat
 torch
+pinecone-client
