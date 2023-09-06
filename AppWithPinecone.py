@@ -91,6 +91,11 @@ with st.sidebar:
         print("Unknow error.")
         st.stop()
 
+def generate_random_string(length):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(length))  
+    
+random_string = generate_random_string(20)    
 final_ss_contents=""
 
 HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
@@ -143,11 +148,16 @@ if initial_user_query!="":
         temp_ss_contents=str(ss_contents)
         final_ss_contents = temp_ss_contents.replace('\\n', '') 
         print("Contexts the AI Assistant extracts from the original materials which have already embedded and saved in Pinecone:\n"+final_ss_contents)
-        file_path = "tempfile.txt"
-        with open(file_path, "w", encoding="utf-8") as file:
-            file.write(final_ss_contents)
-        loader = TextLoader("tempfile.txt", encoding="utf-8")
-        loaded_documents = loader.load()
+#        file_path = "tempfile.txt"
+#        with open(file_path, "w", encoding="utf-8") as file:
+#            file.write(final_ss_contents)
+#        loader = TextLoader("tempfile.txt", encoding="utf-8")
+#        loaded_documents = loader.load()
+        i_file_path = random_string + ".txt"
+        with open(i_file_path, "w", encoding="utf-8") as file:
+            file.write(final_page_contents)
+        loader = TextLoader(i_file_path, encoding="utf-8")
+        loaded_documents = loader.load()        
         temp_ai_response=chain.run(input_documents=loaded_documents, question=initial_user_query)
         final_ai_response=temp_ai_response.partition('<|end|>')[0]
         i_final_ai_response = final_ai_response.replace('\n', '')
