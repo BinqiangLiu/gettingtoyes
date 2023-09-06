@@ -142,8 +142,6 @@ if initial_user_query!="":
             ss_contents.append(temp_ss_content)
         temp_ss_contents=str(ss_contents)
         final_ss_contents = temp_ss_contents.replace('\\n', '') 
-        st.write("Contexts the AI Assistant extracts from the original materials which have already embedded and saved in Pinecone:")
-        st.write(final_ss_contents)
         print("Contexts the AI Assistant extracts from the original materials which have already embedded and saved in Pinecone:\n"+final_ss_contents)
         file_path = "tempfile.txt"
         with open(file_path, "w", encoding="utf-8") as file:
