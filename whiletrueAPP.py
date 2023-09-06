@@ -127,9 +127,9 @@ with st.sidebar:
         st.write("Unknow error.")
         print("Unknow error.")
         st.stop()
-
-initial_user_query = st.text_input("Enter your question here:\n")
+        
 while True:    
+    initial_user_query = st.text_input("Enter your question here:\n")
     if initial_user_query!="" and not initial_user_query.strip().isspace() and not initial_user_query.isspace():
         with st.spinner("AI Working...Please wait a while to Cheers!"):
             user_query=[initial_user_query]
