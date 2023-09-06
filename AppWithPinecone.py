@@ -93,11 +93,10 @@ with st.sidebar:
 
 final_ss_contents=""
 
-model_id = "sentence-transformers/all-MiniLM-L6-v2"
-hf_token = "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"
-HUGGINGFACEHUB_API_TOKEN = "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"
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = "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"
-repo_id = "HuggingFaceH4/starchat-beta"
+HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
+model_id = os.getenv('model_id')
+hf_token = os.getenv('hf_token')
+repo_id = os.getenv('repo_id')
 
 api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
 headers = {"Authorization": f"Bearer {hf_token}"}
