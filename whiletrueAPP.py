@@ -127,9 +127,22 @@ with st.sidebar:
         st.write("Unknow error.")
         print("Unknow error.")
         st.stop()
-        
-while True:    
-    initial_user_query = st.text_input("Enter your question here:\n")
+
+# 初始化用户查询
+initial_user_query = st.text_input("Enter your question here:\n", key="initial")
+
+# 创建一个无限循环
+while True:
+    # 在循环迭代时更新用户查询
+    user_query = st.text_input("Enter your question here:\n", key="updated")
+    
+    # 检查用户是否输入了新的查询
+    if user_query != initial_user_query:
+        # 更新初始查询
+        initial_user_query = user_query
+
+#while True:    
+#    initial_user_query = st.text_input("Enter your question here:\n")
     if initial_user_query!="" and not initial_user_query.strip().isspace() and not initial_user_query.isspace():
         with st.spinner("AI Working...Please wait a while to Cheers!"):
             user_query=[initial_user_query]
