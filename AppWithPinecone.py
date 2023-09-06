@@ -22,7 +22,7 @@ import string
 from dotenv import load_dotenv
 load_dotenv()
 
-st.set_page_config(page_title="Negotiation AI Assistant")
+st.set_page_config(page_title="Negotiation AI Assistant", layout="wide")
 st.subheader("Your Negotiation AI Assistant")
 
 css_file = "main.css"
