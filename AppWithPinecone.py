@@ -29,10 +29,6 @@ css_file = "main.css"
 with open(css_file) as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
-file_path = os.path.join(os.getcwd(), "GTY.pdf")
-
-texts=""
-wechat_image= "WeChatCode.jpg"
 
 st.sidebar.markdown(
     """
@@ -59,6 +55,47 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True
 )
+
+file_path = os.path.join(os.getcwd(), "GTY.pdf")
+
+def generate_random_string(length):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(length))  
+    
+random_string = generate_random_string(20)    
+final_ss_contents=""
+texts=""
+wechat_image= "WeChatCode.jpg"
+
+HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
+model_id = os.getenv('model_id')
+hf_token = os.getenv('hf_token')
+repo_id = os.getenv('repo_id')
+
+api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
+headers = {"Authorization": f"Bearer {hf_token}"}
+
+def get_embeddings(texts):
+    response = requests.post(api_url, headers=headers, json={"inputs": texts, "options":{"wait_for_model":True}})
+    return response.json()
+
+llm = HuggingFaceHub(repo_id=repo_id,
+                     model_kwargs={"min_length":100,
+                                   "max_new_tokens":1024, "do_sample":True,
+                                   "temperature":0.1,
+                                   "top_k":50,
+                                   "top_p":0.95, "eos_token_id":49155})
+
+chain = load_qa_chain(llm=llm, chain_type="stuff")
+
+PINECONE_API_KEY = "b664743d-f2ff-4842-a168-30e8fdbdefda"
+PINECONE_ENVIRONMENT = "gcp-starter"
+PINECONE_INDEX_NAME = "myindex-allminilm-l6-v2-384"
+
+pinecone.init(api_key=PINECONE_API_KEY, environment = PINECONE_ENVIRONMENT) 
+#pinecone.list_indexes()
+
+index = pinecone.Index("myindex-allminilm-l6-v2-384")
 
 with st.sidebar:
     st.subheader("Real world negotiation skills.")    
@@ -91,43 +128,6 @@ with st.sidebar:
         print("Unknow error.")
         st.stop()
 
-def generate_random_string(length):
-    letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(length))  
-    
-random_string = generate_random_string(20)    
-final_ss_contents=""
-
-HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
-model_id = os.getenv('model_id')
-hf_token = os.getenv('hf_token')
-repo_id = os.getenv('repo_id')
-
-api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
-headers = {"Authorization": f"Bearer {hf_token}"}
-
-def get_embeddings(texts):
-    response = requests.post(api_url, headers=headers, json={"inputs": texts, "options":{"wait_for_model":True}})
-    return response.json()
-
-llm = HuggingFaceHub(repo_id=repo_id,
-                     model_kwargs={"min_length":100,
-                                   "max_new_tokens":1024, "do_sample":True,
-                                   "temperature":0.1,
-                                   "top_k":50,
-                                   "top_p":0.95, "eos_token_id":49155})
-
-chain = load_qa_chain(llm=llm, chain_type="stuff")
-
-PINECONE_API_KEY = "b664743d-f2ff-4842-a168-30e8fdbdefda"
-PINECONE_ENVIRONMENT = "gcp-starter"
-PINECONE_INDEX_NAME = "myindex-allminilm-l6-v2-384"
-
-pinecone.init(api_key=PINECONE_API_KEY, environment = PINECONE_ENVIRONMENT) 
-#pinecone.list_indexes()
-
-index = pinecone.Index("myindex-allminilm-l6-v2-384")
-
 initial_user_query = st.text_input("Enter your question here:\n")
 if initial_user_query!="":
     with st.spinner("AI Working...Please wait a while to Cheers!"):
@@ -155,7 +155,7 @@ if initial_user_query!="":
 #        loaded_documents = loader.load()
         i_file_path = random_string + ".txt"
         with open(i_file_path, "w", encoding="utf-8") as file:
-            file.write(final_page_contents)
+            file.write(final_ss_contents)
         loader = TextLoader(i_file_path, encoding="utf-8")
         loaded_documents = loader.load()        
         temp_ai_response=chain.run(input_documents=loaded_documents, question=initial_user_query)
